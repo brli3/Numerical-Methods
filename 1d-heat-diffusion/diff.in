@@ -1,0 +1,7 @@
+1D transient heat conduction (diffusion )
+finite difference method
+20				!number of grid point
+1.				!time step
+1000.				!max time
+1.				!length of rod
+1e-05				!thermal diffusivity

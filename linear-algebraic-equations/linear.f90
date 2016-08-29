@@ -1,13 +1,15 @@
 !*******************************************************************************
 module kinds
+implicit none
 integer, parameter :: dp=kind(0.d0)  !double precision 
 end module kinds
 !*******************************************************************************
 module linsolv
 use kinds
+implicit none
 private  
 public :: uptri, downtri, gauss, doolittle, lusolv, crout, det, cholesky,      &
-          mat_eq, mat_inv, gauss_iter, thomas, jacobi, gs, richardson,          &
+          mat_eq, mat_inv, gauss_iter, thomas, jacobi, gs, richardson,         &
           conjgrad, tdma
 contains
 !*******************************************************************************

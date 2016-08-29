@@ -1,7 +1,7 @@
 program main
 !----------------------------------------------------------------------
 !	solves 1d transient heat conduction equation
-!	dT/dt=alfa*d2T/dx2
+!	dT/dt=alpha*d2T/dx2
 !	explicit method
 !	iterative mehtod(explicit)
 !----------------------------------------------------------------------
@@ -21,26 +21,26 @@ read(file1,*) delt
 read(file1,*) tmax
 read(file1,*) xmax
 read(file1,*) alpha
-!initiate
+!-----initiate
 allocate(x(ni),temp(ni),temp_cp(ni))
-!grid
+!-----grid
 delx=xmax/ni
 x(1)=0.
 x(ni)=xmax
 do i=2,ni-1
   x(i)=x(i-1)+delx
 end do
-!initial value
+!-----initial value
 nt=int(tmax/delt)
 s=alpha*delt/(delx**2)
 do i=1,ni
   temp(i)=0.0
 end do
 t=0.
-!boundary condition
+!-----boundary condition
 temp(1)=100.
 temp(ni)=100.
-!time integration
+!-----time integration
 do while (t<=tmax)
   do i=1,ni
     temp_cp(i)=temp(i)

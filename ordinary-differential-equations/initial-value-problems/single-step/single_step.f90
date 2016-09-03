@@ -5,11 +5,14 @@ integer, parameter :: dp = kind(0.d0)  !  double precision
 end module kinds
 !*******************************************************************************
 module runge_kutta
-!  Runge-Kutta is a popular single step method
-!  Both classical and adaptive versions are included
+!  Initial value problem.
+!  Runge-Kutta is a explicit single step method.
+!  Only one previous point and its derivative 
+!  are used to determine current value.
+!  Both classical and adaptive versions are included.
 use kinds 
 implicit none 
-public :: func, rk4, rk45_adptive
+public :: func, rk4, rk45_adaptive
 
 contains
 !*******************************************************************************
@@ -32,7 +35,7 @@ h = (xstop-x)/n
 do i=1,n
   y = y + rk4_coef(x,y,h,m)
   x = x + h
-  write(*,'(3E14.5)')  x, y
+  write(*,'(<m+1>E14.5)')  x, y
 end do
 
 contains
@@ -54,7 +57,7 @@ rk4_coef = (k(1,:) + 2.0_dp*k(2,:) + 2.0_dp*k(3,:) + k(4,:))/6.0_dp
 end function rk4_coef
 end subroutine rk4
 !*******************************************************************************
-subroutine rk45_adptive(x,y,xstop,m,hstep)
+subroutine rk45_adaptive(x,y,xstop,m,hstep)
 !  Adaptive Runge-Kutta method with embedded Runge-Kutta-Fehlberg formula
 implicit none
 integer :: i
@@ -99,7 +102,7 @@ do while(x<xstop)
   end if
   h = hnext
 !-----print
-  write(*,'(3E14.5)') x, y
+  write(*,'(<m+1>E14.5)') x, y
 end do
 
 contains
@@ -152,7 +155,7 @@ end do
 !-----rms error
 error = sqrt(sum(e**2)/m)
 end subroutine rkf
-end subroutine rk45_adptive
+end subroutine rk45_adaptive
 !*******************************************************************************
 function func(x,y,m)
 !  m-dimension 1st order odes
@@ -184,6 +187,7 @@ x = 0.0_dp
 xstop = 10.0_dp
 y = ([-9.0_dp, 0.0_dp])
 h = 0.1_dp
-call rk45_adptive(x,y,xstop,2)
+write(*,*) 'Result by Runge-Kutta method: '
+call rk45_adaptive(x,y,xstop,2)
 end program main
 !*******************************************************************************

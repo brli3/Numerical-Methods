@@ -79,6 +79,7 @@ end subroutine simpson
 end subroutine auto_simpson
 !*******************************************************************************
 subroutine romberg(intf,a,b,tol)
+!  Romberg method using Richardson extrapolation
 implicit none
 integer :: i, j, k, m, imax=40
 real(dp), intent(in) :: a, b

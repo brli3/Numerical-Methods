@@ -57,19 +57,22 @@ rk4_coef = (k(1,:) + 2.0_dp*k(2,:) + 2.0_dp*k(3,:) + k(4,:))/6.0_dp
 end function rk4_coef
 end subroutine rk4
 !*******************************************************************************
-subroutine rk45_adaptive(x,y,xstop,m,hstep)
+subroutine rk45_adaptive(xstart,xstop,ystart,ystop,m,hstep)
 !  Adaptive Runge-Kutta method with embedded Runge-Kutta-Fehlberg formula
 implicit none
 integer :: i
 integer, intent(in) :: m
+real(dp), intent(in) :: xstart
 real(dp), intent(in) :: xstop
+real(dp), dimension(m), intent(in) :: ystart
+real(dp), dimension(m), intent(out) :: ystop
 real(dp), intent(in), optional :: hstep
-real(dp), intent(inout) :: x
-real(dp), dimension(m), intent(inout) :: y
-real(dp), dimension(m) :: dy
-real(dp) :: h, delta, error
+real(dp), dimension(m) :: y, dy
+real(dp) :: x, h, delta, error
 real(dp) :: hnext
 real(dp), parameter :: tol = 1.0e-6_dp
+x = xstart
+y = ystart
 !-----initial step size
 if(present(hstep)) then
   h = min(hstep, xstop-x)
@@ -104,6 +107,7 @@ do while(x<xstop)
 !-----print
   write(*,'(<m+1>E14.5)') x, y
 end do
+ystop = y
 
 contains
 
@@ -181,13 +185,13 @@ use kinds
 use runge_kutta
 implicit none
 integer :: n
-real(dp) :: x, h, xstop, tol
-real(dp), dimension(2) :: y
-x = 0.0_dp
-xstop = 10.0_dp
-y = ([-9.0_dp, 0.0_dp])
+real(dp) :: xstart, h, xstop, tol
+real(dp), dimension(2) :: ystart, ysol
+xstart = 0.0_dp
+xstop = 11.1_dp
+ystart = ([-9.0_dp, 0.0_dp])
 h = 0.1_dp
 write(*,*) 'Result by Runge-Kutta method: '
-call rk45_adaptive(x,y,xstop,2)
+call rk45_adaptive(xstart,xstop,ystart,ysol,2)
 end program main
 !*******************************************************************************

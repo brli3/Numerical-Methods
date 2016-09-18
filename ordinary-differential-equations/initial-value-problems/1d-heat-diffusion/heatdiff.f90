@@ -1,5 +1,6 @@
 program main
 !----------------------------------------------------------------------
+!   Example of an initial value problem;
 !	solves 1d transient heat conduction equation
 !	dT/dt=alpha*d2T/dx2
 !	explicit method

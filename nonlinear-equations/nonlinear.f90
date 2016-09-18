@@ -8,7 +8,7 @@ module nonlinear
 use kinds
 implicit none
 private 
-public :: newton, gauss, uptri 
+public :: newton 
 contains
 !*******************************************************************************
 subroutine newton()
@@ -31,7 +31,7 @@ do i=1,imax
   write(*,*) i,x
   if(sqrt(dx(1)**2+dx(2)**2)<tol) exit
 end do
-contains
+end subroutine newton
 !******************************************************
 function func(x)
 !  input function
@@ -58,6 +58,7 @@ end function jac
 function jacob(x)
 !  Jacobian matrix by finite difference approximation
 implicit none 
+integer :: i
 integer, parameter :: n=2
 real(dp) :: x(n)
 real(dp) :: f1(n), f2(n), h, temp
@@ -75,8 +76,6 @@ do i=1,n
   jacob(:,i)=(f2-f1)/h
 end do
 end function jacob
-!******************************************************
-end subroutine newton
 !*******************************************************************************
 subroutine gauss(a,b,x,n)
 !  Gauss elimination

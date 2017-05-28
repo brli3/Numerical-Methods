@@ -183,7 +183,7 @@ end subroutine thomas
 subroutine lusolv(a,b,x,n)
 !  LU decomposition
 implicit none 
-integer :: i,k
+integer :: i, k
 integer, intent(in) :: n
 real(dp), dimension(1:n,1:n), intent(in) :: a
 real(dp), dimension(1:n), intent(in) :: b

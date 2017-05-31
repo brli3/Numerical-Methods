@@ -13,5 +13,5 @@
 6. Numerical Differentiation
 7. Numerical Integration
 8. Ordinary Differential Equations
-  1. Initial Value Problems
-  2. Boundary Value Problems
+    1. Initial Value Problems
+    2. Boundary Value Problems

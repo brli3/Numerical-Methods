@@ -1,0 +1,8 @@
+*.dat
+*.txt
+*.o
+*.obj
+*.mod
+.ipynb_checkpoints
+
+

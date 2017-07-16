@@ -35,6 +35,7 @@ do i=1,nl-1
   y(i) = 0.5_dp * (y_in(i) + y_in(i+1))
   dx(i) = x_in(i+1) - x_in(i)
 end do
+x(nl) = x_in(nl)
 dx_min = minval(dx)
 dx_max = maxval(dx)
 iex = int((delta+0.01*dx_min) / dx_min)
@@ -65,7 +66,7 @@ do i=1,nl-1
     end if
   end do
   ynew(i) = ynew(i) * (gauss+gauss_ex)/gauss
-  print *, 'Gauss+Gauss_ex:', gauss + gauss_ex
+  ynew(nl) = ynew(nl-1)
 end do
 deallocate(dx, y, x_ex, stat=ierr)
 end subroutine gaussian_filter_1d0
